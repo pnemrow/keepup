@@ -1,10 +1,3 @@
-# github-notetaker-egghead
+# Keepup
 
-[Build Your First React App](https://egghead.io/series/build-your-first-react-js-application) is an egghead lesson series.
-
-### Instructions
-
-```bash
-npm install
-webpack -w
-```
+An app to help keep in touch with your friends.
