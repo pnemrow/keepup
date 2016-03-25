@@ -66,19 +66,17 @@ class Login extends React.Component {
         for(let i = 0; i < this.state.objectArrays.length; i++) {
           fbApiCall('likes?ids='+this.state.objectArrays[i])
           .then((likesResponse) => {
+            console.log(likesResponse)
             var friendMap = new Map()
             for (var key in likesResponse) {
               // skip loop if the property is from prototype
               //if (!likesResponse.hasOwnProperty(key)) continue;
 
-              for (let t = 0; t < likesResponse[key].data.length; t++) {
+              for (var t = 0; t < likesResponse[key].data.length; t++) {
                 if(friendMap.has(likesResponse[key].data[t].id)) {
                   var likeFriendObject = friendMap.get(likesResponse[key].data[t].id)
-                  console.log(likeFriendObject,5)
                   likeFriendObject.likeCount++
-                  console.log(likeFriendObject,likesResponse[key].data[t],4)
                   friendMap.set(likeFriendObject.id, likeFriendObject)
-                  console.log(likeFriendObject,likesResponse[key].data[t],3)
                 } else {
                   var likeFriendObject = likesResponse[key].data[t]
                   likeFriendObject.likeCount = 1
@@ -93,13 +91,12 @@ class Login extends React.Component {
           })
           .then((commentResponse) => {
             var friendMap = this.state.friendMap
-            console.log('friendMap', friendMap)
             for (var key in commentResponse) {
 
               // skip loop if the property is from prototype
               //if (!commentResponse.hasOwnProperty(key)) continue;
-              for (let z = 0; z < commentResponse[key].data.length; z++) {
-                if(friendMap.has(commentResponse[key].data[z].from)) {
+              for (var z = 0; z < commentResponse[key].data.length; z++) {
+                if(friendMap.has(commentResponse[key].data[z].from.id)) {
                   var commentFriendObject = friendMap.get(commentResponse[key].data[z].from.id)
                   commentFriendObject.commentCount++
                   friendMap.set(commentFriendObject.id, commentFriendObject)
@@ -122,10 +119,8 @@ class Login extends React.Component {
                 friendArrays.push(friendIdArray.splice(0, size))
 
             this.setState({friendArrays})
-            console.log("friendArrays", this.state.friendArrays)
           })
           .then(() => {
-            console.log("start1", this.state.friendMap)
             for(let i = 0; i < this.state.friendArrays.length; i++) {
               fbApiCall('picture?redirect=false&ids='+this.state.friendArrays[i])
               .then((pictureResponse) => {
@@ -137,32 +132,30 @@ class Login extends React.Component {
                   } 
                 }
                 this.setState({friendMap})
-                console.log("start2", this.state.friendMap)
 
               })
             }
           })
           .then(() => {
-            console.log('end1', this.state.friendMap)
             var friendMap = this.state.friendMap
             var friendList = []
             friendMap.forEach((value, key, map) => {
-              console.log(value, map[key])
               friendList.push(value)
             })
 
             friendList.sort(function (a, b) {
-              if (a.likeCount > b.likeCount) {
+              var aScore = a.likeCount + (2 * a.commentCount)
+              var bScore = b.likeCount + (2 * b.commentCount)
+              if (aScore > bScore) {
                 return -1;
               }
-              if (a.likeCount < b.likeCount) {
+              if (aScore < bScore) {
                 return 1;
               }
               // a must be equal to b
               return 0;
-            });  
-            console.log('end2', friendList)
-            this.setState({friendList: friendList, friendMap: friendMap})
+            }); 
+            this.setState({friendList: friendList})
           })
         }
       })
