@@ -3,6 +3,10 @@ module.exports = {
   output: {
     filename: "public/bundle.js"
   },
+  node: {
+    net: "empty",
+    tls: "empty"
+  },
   module: {
     loaders: [
       {

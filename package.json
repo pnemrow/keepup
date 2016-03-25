@@ -1,17 +1,30 @@
 {
-  "name": "egghead-notetaker-updates",
+  "name": "Keepup",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack && http-server public"
   },
-  "author": "Tyler McGinnis <tylermcginnis33@gmail.com> (http://tylermcginnis.com)",
+  "node": {
+    "console": "true",
+    "fs": "empty",
+    "net": "empty",
+    "tls": "empty",
+    "fb": "empty"
+  },
+  "author": "Peter Nemrow",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.8.0",
+    "es6-promisify": "^3.0.0",
+    "facebook-api": "^0.1.2",
+    "fb": "^1.0.2",
+    "fb-react-sdk": "^1.0.4",
     "firebase": "^2.3.2",
     "history": "^1.13.1",
+    "http-server": "^0.9.0",
     "re-base": "^1.3.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
@@ -19,6 +32,7 @@
     "reactfire": "^0.5.1"
   },
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-core": "^6.3.13",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
