@@ -2,6 +2,9 @@ import React from 'react'
 import Rebase from 're-base';
 import graph from 'fb-react-sdk';
 import promisify from 'es6-promisify';
+import mui from 'material-ui'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import {AppBar} from 'material-ui'
 
 import Login from './Login';
 import Dashboard from './Dashboard';
@@ -172,6 +175,8 @@ export default React.createClass({
             return 0;
           }); 
           this.setState({friendList: friendList})
+          friendList = friendList.slice(0,50)
+
           base.post('users/'+localStorage.getItem('userId')+'/friendList', {
               data: friendList
             })
@@ -188,10 +193,8 @@ export default React.createClass({
       <Login handleLogin={this.handleLogin} />
 
     return (
-      <div className="row">
-        <div className="col-md-12">
-          {isLoggedIn}
-        </div>
+      <div>
+        {isLoggedIn}
       </div>
     )
   }

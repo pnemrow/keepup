@@ -1,11 +1,15 @@
 import React from 'react';
+import mui from 'material-ui'
+import {AppCanvas, AppBar} from 'material-ui'
+
 
 const Main = ({children, history}) => {
   return (
-    <div className="main-container">
-      <div className="container">
+    <div>
+      <AppBar />
+      <AppCanvas>
         {children}
-      </div>
+      </AppCanvas>
     </div>
   )
 }

@@ -1,21 +1,30 @@
+var webpack = require('webpack');
+var path = require('path');
+
 module.exports = {
-  entry: "./app/App.js",
+  entry: [
+    'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    './app/App.js' // Your appʼs entry point
+  ],
   output: {
-    filename: "public/bundle.js"
+    path: path.resolve(__dirname, "build"),
+    filename: 'bundle.js',
+    publicPath: '/public/'
   },
   node: {
     net: "empty",
     tls: "empty"
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015']
-        }
+        test: /.jsx?$/,
+        exclude: /node_modules/,
+        loaders: ['react-hot', 'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0']
       }
     ]
   }
