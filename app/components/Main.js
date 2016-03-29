@@ -6,10 +6,7 @@ import {AppCanvas, AppBar} from 'material-ui'
 const Main = ({children, history}) => {
   return (
     <div>
-      <AppBar />
-      <AppCanvas>
-        {children}
-      </AppCanvas>
+      {children}
     </div>
   )
 }

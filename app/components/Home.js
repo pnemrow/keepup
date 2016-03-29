@@ -175,7 +175,6 @@ export default React.createClass({
             return 0;
           }); 
           this.setState({friendList: friendList})
-          friendList = friendList.slice(0,50)
 
           base.post('users/'+localStorage.getItem('userId')+'/friendList', {
               data: friendList

@@ -5,7 +5,13 @@ import AddFriends from './AddFriends'
 import FriendList from './FriendList'
 import SelectedFriend from './SelectedFriend'
 import mui from 'material-ui'
-import {CardTitle, CircularProgress, Card, CardMedia, Avatar, CardHeader, TextField, List, ListItem, RaisedButton, CardText, FloatingActionButton} from 'material-ui'
+import {AppCanvas, AppBar, Avatar, CardTitle, CircularProgress, Card, CardMedia, CardHeader, TextField, List, ListItem, RaisedButton, CardText, FloatingActionButton} from 'material-ui'
+import IconButton from 'material-ui/lib/icon-button';
+import Avamar from 'material-ui/lib/avatar';
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 
 export default React.createClass({
   propTypes: {
@@ -25,6 +31,7 @@ export default React.createClass({
   },
 
   render() {
+    
     var hasFriends = this.props.userData.friendList ?
       <div>
         <FriendList userData={this.props.userData} friendSelected={this.friendSelected}/>
@@ -33,10 +40,14 @@ export default React.createClass({
       <AddFriends userData={this.props.userData} handleGetFriends={this.props.handleGetFriends} />
 
     return (
-      <div className="row">
-        <div>
-          {hasFriends}
-        </div>
+      <div>
+          <AppBar
+            title="Keepup"
+            iconElementLeft={<div></div>}
+          />
+          <AppCanvas>
+            {hasFriends}
+          </AppCanvas>
       </div>
     )
   }
